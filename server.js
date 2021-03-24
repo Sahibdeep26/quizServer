@@ -17,8 +17,8 @@ http.createServer(function (req, res) {
     //res.write('<title>DB Service</title>');
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Request-Method', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', req.header.origin);
 
     let reqUrl = url.parse(req.url, true);
 
