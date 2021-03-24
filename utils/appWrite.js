@@ -32,19 +32,21 @@ function insertData(question, opt1, opt2, opt3, opt4, Answer) {
 
   con.query(insertQuestionQuery, (err, result) => {
     if (err) throw err;
+
+    if ( (opt3 == "") && (opt4 == "") ) {
+      var insertOptionsQuery = `INSERT INTO options (questionId, optionValue) Values (${questionID}, '${opt1}'), (${questionID}, '${opt2}')`  
+    }else if (opt4 == "") {
+      var insertOptionsQuery = `INSERT INTO options (questionId, optionValue) Values (${questionID}, '${opt1}'), (${questionID}, '${opt2}'),  (${questionID}, '${opt3}')`
+    }else{
+      var insertOptionsQuery = `INSERT INTO options (questionId, optionValue) Values (${questionID}, '${opt1}'), (${questionID}, '${opt2}'), (${questionID}, '${opt3}'),(${questionID}, '${opt4}')`;
+    }
+  
+    con.query(insertOptionsQuery, (err, result) => {
+      if (err) throw err;
+    });
   });
 
-  if ( (opt3 == "") && (opt4 == "") ) {
-    var insertOptionsQuery = `INSERT INTO options (questionId, optionValue) Values (${questionID}, '${opt1}'), (${questionID}, '${opt2}')`  
-  }else if (opt4 == "") {
-    var insertOptionsQuery = `INSERT INTO options (questionId, optionValue) Values (${questionID}, '${opt1}'), (${questionID}, '${opt2}'),  (${questionID}, '${opt3}')`
-  }else{
-    var insertOptionsQuery = `INSERT INTO options (questionId, optionValue) Values (${questionID}, '${opt1}'), (${questionID}, '${opt2}'), (${questionID}, '${opt3}'),(${questionID}, '${opt4}')`;
-  }
 
-  con.query(insertOptionsQuery, (err, result) => {
-    if (err) throw err;
-  });
   
 }
 
